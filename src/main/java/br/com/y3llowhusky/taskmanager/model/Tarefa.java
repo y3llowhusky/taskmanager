@@ -9,7 +9,9 @@ public class Tarefa {
 	private String descricao;
 	private LocalDate dataCriacao;
 	private EnumSituacao situacaoTarefa;
-	private Long usuarioId;
+	private Long criadorId;
+	private Long responsavelId;
+	private LocalDate prazoEntrega;
 	
 	public Tarefa() {
 		
