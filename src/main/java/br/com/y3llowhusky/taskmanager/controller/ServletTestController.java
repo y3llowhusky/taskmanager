@@ -14,6 +14,7 @@ public class ServletTestController extends HttpServlet{
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		res.setContentType("text/html;charset=UTF-8");
-		res.getWriter().println("<h1>Funcionando!<h1>");
+		String param = req.getParameter("paramName");
+		res.getWriter().println("<h1>Funcionando! Parâmetro: <h1>" + param);
 	}
 }
