@@ -11,28 +11,31 @@ public class Usuario {
 	private String senha;
 	private String telefone;
 	private LocalDate dataNascimento;
-	private LocalDate dataCriacao;
+	private LocalDate dataCadastro;
 	private EnumStatus status;
 	private EnumTipo tipoUsuario;
 	
-	// construtor padrão do usuário (vazio)
+	// construtor vazio
 	public Usuario() {
 		
 	}
 
-	public Usuario(Long id, String nome, String email, String telefone, LocalDate dataNascimento, LocalDate dataCriacao,
-			EnumStatus status, EnumTipo tipoUsuario) {
+	// construtor parametrizado
+	public Usuario(Long id, String nome, String email, String senha, String telefone, LocalDate dataNascimento,
+			LocalDate dataCadastro, EnumStatus status, EnumTipo tipoUsuario) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
+		this.senha = senha;
 		this.telefone = telefone;
 		this.dataNascimento = dataNascimento;
-		this.dataCriacao = dataCriacao;
+		this.dataCadastro = dataCadastro;
 		this.status = status;
 		this.tipoUsuario = tipoUsuario;
 	}
 
+	// getters e setters
 	public Long getId() {
 		return id;
 	}
@@ -57,6 +60,14 @@ public class Usuario {
 		this.email = email;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public String getTelefone() {
 		return telefone;
 	}
@@ -73,12 +84,12 @@ public class Usuario {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public LocalDate getDataCriacao() {
-		return dataCriacao;
+	public LocalDate getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setDataCriacao(LocalDate dataCriacao) {
-		this.dataCriacao = dataCriacao;
+	public void setDataCadastro(LocalDate dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public EnumStatus getStatus() {
@@ -96,6 +107,5 @@ public class Usuario {
 	public void setTipoUsuario(EnumTipo tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
 	}
-	
 	
 }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Tarefa {
 	
+	// atributos da tarefa
 	private Long id;
 	private String nome;
 	private String descricao;
@@ -13,21 +14,26 @@ public class Tarefa {
 	private Long responsavelId;
 	private LocalDate prazoEntrega;
 	
+	// construtor vazio
 	public Tarefa() {
 		
 	}
 
+	// construtor parametrizado
 	public Tarefa(Long id, String nome, String descricao, LocalDate dataCriacao, EnumSituacao situacaoTarefa,
-			Long usuarioId) {
+			Long criadorId, Long responsavelId, LocalDate prazoEntrega) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.dataCriacao = dataCriacao;
 		this.situacaoTarefa = situacaoTarefa;
-		this.usuarioId = usuarioId;
+		this.criadorId = criadorId;
+		this.responsavelId = responsavelId;
+		this.prazoEntrega = prazoEntrega;
 	}
 
+	// getters e setters
 	public Long getId() {
 		return id;
 	}
@@ -68,14 +74,28 @@ public class Tarefa {
 		this.situacaoTarefa = situacaoTarefa;
 	}
 
-	public Long getUsuarioId() {
-		return usuarioId;
+	public Long getCriadorId() {
+		return criadorId;
 	}
 
-	public void setUsuarioId(Long usuarioId) {
-		this.usuarioId = usuarioId;
+	public void setCriadorId(Long criadorId) {
+		this.criadorId = criadorId;
 	}
-	
-	
+
+	public Long getResponsavelId() {
+		return responsavelId;
+	}
+
+	public void setResponsavelId(Long responsavelId) {
+		this.responsavelId = responsavelId;
+	}
+
+	public LocalDate getPrazoEntrega() {
+		return prazoEntrega;
+	}
+
+	public void setPrazoEntrega(LocalDate prazoEntrega) {
+		this.prazoEntrega = prazoEntrega;
+	}
 	
 }
