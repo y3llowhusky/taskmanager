@@ -15,11 +15,11 @@ CREATE TABLE usuarios (
 CREATE TABLE tarefas (
     tarefa_id        	BIGINT IDENTITY(1,1) PRIMARY KEY,
     nome            	VARCHAR(50) NOT NULL,
-    descricao       	CLOB,
+    descricao       	VARCHAR(MAX),
     data_criacao     	DATE        NOT NULL,
     situacao_tarefa  	VARCHAR(20) NOT NULL,
-    criador_id       	NUMBER(4),
-    responsavel_id   	NUMBER(4),
+    criador_id       	BIGINT,
+    responsavel_id   	BIGINT,
     prazo_entrega    	DATE
 );
 
