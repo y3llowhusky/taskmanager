@@ -1,7 +1,7 @@
 package br.com.y3llowhusky.taskmanager.model;
 
 public enum EnumSituacao {
-	PENDENTE("Pendente"), CONCLUIDA("Concluída");
+	PENDENTE("Pendente"), CONCLUIDA("Concluída"), CANCELADA("Cancelada");
 	
 	private String descricao;
 	
