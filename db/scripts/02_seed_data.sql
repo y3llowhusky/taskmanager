@@ -3,6 +3,15 @@
 -- Projeto: taskmanager
 -- =====================================================
 
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'taskmanager')
+BEGIN
+	CREATE DATABASE taskmanager;
+END
+GO
+
+USE taskmanager;
+GO
+
 -- ---------------------------------------------------
 -- USUARIOS (10 registros)
 -- 5 PADRAO / 5 ADMIN | 7 ATIVO / 3 INATIVO

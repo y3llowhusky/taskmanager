@@ -1,3 +1,12 @@
+IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'taskmanager')
+BEGIN
+	CREATE DATABASE taskmanager;
+END
+GO
+
+USE taskmanager;
+GO
+
 -- CREATE TABLES
 
 CREATE TABLE usuarios (
