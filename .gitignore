@@ -11,4 +11,5 @@ target/
 Thumbs.db
 
 # Banco
-db/data/
+db/data/*
+!db/data/.gitkeep
