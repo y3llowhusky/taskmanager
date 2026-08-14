@@ -13,3 +13,7 @@ Thumbs.db
 # Banco
 db/data/*
 !db/data/.gitkeep
+/bin/
+
+# Credenciais DB
+src/main/resources/database.properties
