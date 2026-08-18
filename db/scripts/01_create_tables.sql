@@ -18,7 +18,7 @@ CREATE TABLE usuarios (
     data_nascimento  	DATE        NOT NULL,
     data_cadastro    	DATE        NOT NULL,
     status          	VARCHAR(20) NOT NULL,
-    tipo_usuario     	VARCHAR(20) NOT NULL
+    usuario_tipo     	VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE tarefas (
@@ -26,7 +26,7 @@ CREATE TABLE tarefas (
     nome            	VARCHAR(50) NOT NULL,
     descricao       	VARCHAR(MAX),
     data_criacao     	DATE        NOT NULL,
-    situacao_tarefa  	VARCHAR(20) NOT NULL,
+    tarefa_situacao  	VARCHAR(20) NOT NULL,
     criador_id       	BIGINT,
     responsavel_id   	BIGINT,
     prazo_entrega    	DATE
@@ -50,8 +50,8 @@ CHECK (status IN ('ATIVO', 'INATIVO'));
 
 ALTER TABLE usuarios
 ADD CONSTRAINT ck_usuarios_tipo
-CHECK (tipo_usuario IN ('PADRAO', 'ADMIN'));
+CHECK (usuario_tipo IN ('PADRAO', 'ADMIN'));
 
 ALTER TABLE tarefas
 ADD CONSTRAINT ck_tarefas_situacao
-CHECK (situacao_tarefa IN ('PENDENTE', 'CONCLUIDA', 'CANCELADA'));
+CHECK (tarefa_situacao IN ('PENDENTE', 'CONCLUIDA', 'CANCELADA'));

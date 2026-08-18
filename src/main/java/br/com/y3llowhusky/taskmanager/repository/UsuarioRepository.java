@@ -29,7 +29,7 @@ public class UsuarioRepository {
 				Usuario usuario = new Usuario();
 				
 				String usuarioStatus = rs.getString("status"); 
-				String usuarioTipo = rs.getString("tipo_usuario");
+				String usuarioTipo = rs.getString("usuario_tipo");
 				
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
@@ -54,9 +54,8 @@ public class UsuarioRepository {
 	public Usuario buscarPorId(Long id) {
 		
 		Connection con = ConnectionFactory.getConnection();
-		String sql = "SELECT * FROM usuarios WHERE id_usuario = ?";		
-		Usuario usuario = new Usuario();
-		
+		String sql = "SELECT * FROM usuarios WHERE usuario_id = ?";		
+		Usuario usuario = null;
 		
 		try (con) {
 			
@@ -66,8 +65,48 @@ public class UsuarioRepository {
 			
 			if (rs.next()) {
 				
+				usuario = new Usuario();
+				
 				String usuarioStatus = rs.getString("status");
-				String usuarioTipo = rs.getString("tipo_usuario");
+				String usuarioTipo = rs.getString("usuario_tipo");
+				
+				usuario.setNome(rs.getString("nome"));
+				usuario.setEmail(rs.getString("email"));
+				usuario.setSenha(rs.getString("senha"));
+				usuario.setTelefone(rs.getString("telefone"));
+				usuario.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				usuario.setDataCadastro(rs.getDate("data_cadastro").toLocalDate());
+				usuario.setStatus(EnumStatus.valueOf(usuarioStatus));
+				usuario.setTipoUsuario(EnumTipo.valueOf(usuarioTipo));
+				
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return usuario;
+		
+	}
+	
+	public Usuario buscarPorEmail(String email) {
+		
+		Connection con = ConnectionFactory.getConnection();
+		String sql = "SELECT * FROM usuarios WHERE email = ?";		
+		Usuario usuario = null;
+		
+		try (con) {
+			
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				
+				usuario = new Usuario();
+				String usuarioStatus = rs.getString("status");
+				String usuarioTipo = rs.getString("usuario_tipo");
 				
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
