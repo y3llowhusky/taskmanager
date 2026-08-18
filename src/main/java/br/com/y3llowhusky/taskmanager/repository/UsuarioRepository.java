@@ -12,10 +12,12 @@ import br.com.y3llowhusky.taskmanager.model.Usuario;
 import br.com.y3llowhusky.taskmanager.util.ConnectionFactory;
 
 public class UsuarioRepository {
-	public List<Usuario> listarTodos() {
-		List<Usuario> usuarios = new ArrayList<>();
+	
+	Connection con = ConnectionFactory.getConnection();
+	
+	public List<Usuario> listarTodos(Connection con) {
 		
-		Connection con = ConnectionFactory.getConnection();
+		List<Usuario> usuarios = new ArrayList<>();
 		
 		String sql = "SELECT * FROM usuarios";
 		
@@ -27,20 +29,19 @@ public class UsuarioRepository {
 				
 				Usuario usuario = new Usuario();
 				
+				String usuarioStatus = rs.getString("status"); 
+				String usuarioTipo = rs.getString("tipo_usuario");
+				
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setSenha(rs.getString("senha"));
 				usuario.setTelefone(rs.getString("telefone"));
-				usuario.setDataNascimento(rs.getDate("data_nascimento"));
-				// CONTINUAR DAQUI PRA BAIXO!!
-				rs.getDate("data_cadastro");
-				rs.getString("status");
-				rs.getString("tipo_usuario");
+				usuario.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
+				usuario.setDataCadastro(rs.getDate("data_cadastro").toLocalDate());
+				usuario.setStatus(EnumStatus.valueOf(usuarioStatus));
+				usuario.setTipoUsuario(EnumTipo.valueOf(usuarioTipo));
 				
-				EnumStatus.valueOf("ATIVO");
-				EnumStatus.valueOf("INATIVO");
-				EnumTipo.valueOf("PADRAO");
-				EnumTipo.valueOf("ADMIN");
+				usuarios.add(usuario);
 				
 			}
 			
@@ -49,5 +50,34 @@ public class UsuarioRepository {
 		}
 		
 		return usuarios;
+	}
+	
+	public Usuario buscarPorId(Long id, Connection con) {
+		
+		Usuario usuario = new Usuario();
+		
+		String sql = "SELECT nome, email, telefone, status, tipo_usuario FROM usuarios WHERE id_usuario = ?";
+		
+		try (con) {
+			
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setLong(1, 1);
+			ResultSet rs = ps.executeQuery();
+			
+			String usuarioStatus = rs.getString("status");
+			String usuarioTipo = rs.getString("tipo_usuario");
+			
+			usuario.setNome(rs.getString("nome"));
+			usuario.setEmail(rs.getString("email"));
+			usuario.setTelefone(rs.getString("telefone"));
+			usuario.setStatus(EnumStatus.valueOf(usuarioStatus));
+			usuario.setTipoUsuario(EnumTipo.valueOf(usuarioTipo));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return usuario;
+		
 	}
 }
