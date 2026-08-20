@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.y3llowhusky.taskmanager.model.EnumSituacao;
 import br.com.y3llowhusky.taskmanager.model.Tarefa;
 import br.com.y3llowhusky.taskmanager.util.ConnectionFactory;
 
@@ -26,7 +27,15 @@ public class TarefaRepository {
 				
 				Tarefa tarefa = new Tarefa();
 				
+				String situacao = rs.getString("situacao");
+				
 				tarefa.setNome(rs.getString("nome"));
+				tarefa.setDescricao(rs.getString("descricao"));
+				tarefa.setDataCriacao(rs.getDate("data_criacao").toLocalDate());
+				tarefa.setSituacao(EnumSituacao.valueOf(situacao));
+				tarefa.setCriadorId(rs.getLong("criador_id"));
+				tarefa.setResponsavelId(rs.getLong("responsavel_id"));
+				tarefa.setPrazoEntrega(rs.getDate("prazo_entrega").toLocalDate());
 				
 			}
 			

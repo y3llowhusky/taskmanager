@@ -30,8 +30,8 @@ public class UsuarioRepository {
 				
 				Usuario usuario = new Usuario();
 				
-				String usuarioStatus = rs.getString("status"); 
-				String usuarioTipo = rs.getString("usuario_tipo");
+				String status = rs.getString("status"); 
+				String tipo = rs.getString("usuario_tipo");
 				
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
@@ -39,8 +39,8 @@ public class UsuarioRepository {
 				usuario.setTelefone(rs.getString("telefone"));
 				usuario.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
 				usuario.setDataCadastro(rs.getDate("data_cadastro").toLocalDate());
-				usuario.setStatus(EnumStatus.valueOf(usuarioStatus));
-				usuario.setTipoUsuario(EnumTipo.valueOf(usuarioTipo));
+				usuario.setStatus(EnumStatus.valueOf(status));
+				usuario.setTipo(EnumTipo.valueOf(tipo));
 				
 				usuarios.add(usuario);
 				
@@ -69,8 +69,8 @@ public class UsuarioRepository {
 				
 				usuario = new Usuario();
 				
-				String usuarioStatus = rs.getString("status");
-				String usuarioTipo = rs.getString("usuario_tipo");
+				String status = rs.getString("status");
+				String tipo = rs.getString("usuario_tipo");
 				
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
@@ -78,8 +78,8 @@ public class UsuarioRepository {
 				usuario.setTelefone(rs.getString("telefone"));
 				usuario.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
 				usuario.setDataCadastro(rs.getDate("data_cadastro").toLocalDate());
-				usuario.setStatus(EnumStatus.valueOf(usuarioStatus));
-				usuario.setTipoUsuario(EnumTipo.valueOf(usuarioTipo));
+				usuario.setStatus(EnumStatus.valueOf(status));
+				usuario.setTipo(EnumTipo.valueOf(tipo));
 				
 			}
 			
@@ -107,8 +107,8 @@ public class UsuarioRepository {
 			if (rs.next()) {
 				
 				usuario = new Usuario();
-				String usuarioStatus = rs.getString("status");
-				String usuarioTipo = rs.getString("usuario_tipo");
+				String status = rs.getString("status");
+				String tipo = rs.getString("usuario_tipo");
 				
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
@@ -116,8 +116,8 @@ public class UsuarioRepository {
 				usuario.setTelefone(rs.getString("telefone"));
 				usuario.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
 				usuario.setDataCadastro(rs.getDate("data_cadastro").toLocalDate());
-				usuario.setStatus(EnumStatus.valueOf(usuarioStatus));
-				usuario.setTipoUsuario(EnumTipo.valueOf(usuarioTipo));
+				usuario.setStatus(EnumStatus.valueOf(status));
+				usuario.setTipo(EnumTipo.valueOf(tipo));
 				
 			}
 			
@@ -149,7 +149,7 @@ public class UsuarioRepository {
 			ps.setDate(5, dataFormatada);
 			ps.setDate(6, dataCadastro);
 			ps.setString(7, usuario.getStatus().name());
-			ps.setString(8, usuario.getTipoUsuario().name());
+			ps.setString(8, usuario.getTipo().name());
 			
 			ps.executeUpdate();
 			
@@ -172,7 +172,7 @@ public class UsuarioRepository {
 			ps.setString(1, usuario.getNome());
 			ps.setString(2, usuario.getEmail());
 			ps.setString(3, usuario.getTelefone());
-			ps.setString(4, usuario.getTipoUsuario().name());
+			ps.setString(4, usuario.getTipo().name());
 			ps.setLong(5, usuario.getId());
 			
 			ps.executeUpdate();

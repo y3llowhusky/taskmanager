@@ -9,7 +9,7 @@ public class Tarefa {
 	private String nome;
 	private String descricao;
 	private LocalDate dataCriacao;
-	private EnumSituacao situacaoTarefa;
+	private EnumSituacao situacao;
 	private Long criadorId;
 	private Long responsavelId;
 	private LocalDate prazoEntrega;
@@ -19,21 +19,19 @@ public class Tarefa {
 		
 	}
 
-	// construtor parametrizado
-	public Tarefa(Long id, String nome, String descricao, LocalDate dataCriacao, EnumSituacao situacaoTarefa,
-			Long criadorId, Long responsavelId, LocalDate prazoEntrega) {
+	public Tarefa(Long id, String nome, String descricao, LocalDate dataCriacao, EnumSituacao situacao, Long criadorId,
+			Long responsavelId, LocalDate prazoEntrega) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.dataCriacao = dataCriacao;
-		this.situacaoTarefa = situacaoTarefa;
+		this.situacao = situacao;
 		this.criadorId = criadorId;
 		this.responsavelId = responsavelId;
 		this.prazoEntrega = prazoEntrega;
 	}
 
-	// getters e setters
 	public Long getId() {
 		return id;
 	}
@@ -66,12 +64,12 @@ public class Tarefa {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public EnumSituacao getSituacaoTarefa() {
-		return situacaoTarefa;
+	public EnumSituacao getSituacao() {
+		return situacao;
 	}
 
-	public void setSituacaoTarefa(EnumSituacao situacaoTarefa) {
-		this.situacaoTarefa = situacaoTarefa;
+	public void setSituacao(EnumSituacao situacao) {
+		this.situacao = situacao;
 	}
 
 	public Long getCriadorId() {
@@ -97,5 +95,5 @@ public class Tarefa {
 	public void setPrazoEntrega(LocalDate prazoEntrega) {
 		this.prazoEntrega = prazoEntrega;
 	}
-	
+
 }
