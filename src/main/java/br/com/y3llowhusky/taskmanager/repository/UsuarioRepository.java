@@ -130,7 +130,7 @@ public class UsuarioRepository {
 		
 	}
 	
-	public void criarUsuario (Usuario usuario) {
+	public void criar(Usuario usuario) {
 		
 		Connection con = ConnectionFactory.getConnection();
 		String sql = "INSERT INTO usuarios (nome, email, senha, telefone, data_nascimento, data_cadastro, "
@@ -159,7 +159,7 @@ public class UsuarioRepository {
 		
 	}
 	
-	public void editarUsuario(Usuario usuario) {
+	public void editar(Usuario usuario) {
 		
 		Connection con = ConnectionFactory.getConnection();
 		String sql = "UPDATE usuarios SET nome = ?, email = ?, telefone = ?, tipo = ?"
@@ -183,7 +183,7 @@ public class UsuarioRepository {
 		
 	}
 	
-	public void desativarUsuario(Long id) {
+	public void desativar(Long id) {
 		
 		Connection con = ConnectionFactory.getConnection();
 		String sql = "UPDATE usuarios SET status = 'INATIVO' WHERE id = ?";
