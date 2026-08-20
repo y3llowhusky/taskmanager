@@ -1,6 +1,7 @@
 package br.com.y3llowhusky.taskmanager.model;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class Tarefa {
 	

@@ -31,14 +31,14 @@ public class UsuarioRepository {
 				Usuario usuario = new Usuario();
 				
 				String status = rs.getString("status"); 
-				String tipo = rs.getString("usuario_tipo");
+				String tipo = rs.getString("tipo");
 				
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setSenha(rs.getString("senha"));
 				usuario.setTelefone(rs.getString("telefone"));
-				usuario.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
-				usuario.setDataCadastro(rs.getDate("data_cadastro").toLocalDate());
+				usuario.setDataNascimento(rs.getObject("data_nascimento", LocalDate.class));
+				usuario.setDataCadastro(rs.getObject("data_cadastro", LocalDate.class));
 				usuario.setStatus(EnumStatus.valueOf(status));
 				usuario.setTipo(EnumTipo.valueOf(tipo));
 				
@@ -57,7 +57,7 @@ public class UsuarioRepository {
 		
 		Connection con = ConnectionFactory.getConnection();
 		Usuario usuario = null;
-		String sql = "SELECT * FROM usuarios WHERE usuario_id = ?";		
+		String sql = "SELECT * FROM usuarios WHERE id = ?";		
 		
 		try (con) {
 			
@@ -70,14 +70,14 @@ public class UsuarioRepository {
 				usuario = new Usuario();
 				
 				String status = rs.getString("status");
-				String tipo = rs.getString("usuario_tipo");
+				String tipo = rs.getString("tipo");
 				
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setSenha(rs.getString("senha"));
 				usuario.setTelefone(rs.getString("telefone"));
-				usuario.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
-				usuario.setDataCadastro(rs.getDate("data_cadastro").toLocalDate());
+				usuario.setDataNascimento(rs.getObject("data_nascimento", LocalDate.class));
+				usuario.setDataCadastro(rs.getObject("data_cadastro", LocalDate.class));
 				usuario.setStatus(EnumStatus.valueOf(status));
 				usuario.setTipo(EnumTipo.valueOf(tipo));
 				
@@ -108,14 +108,14 @@ public class UsuarioRepository {
 				
 				usuario = new Usuario();
 				String status = rs.getString("status");
-				String tipo = rs.getString("usuario_tipo");
+				String tipo = rs.getString("tipo");
 				
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
 				usuario.setSenha(rs.getString("senha"));
 				usuario.setTelefone(rs.getString("telefone"));
-				usuario.setDataNascimento(rs.getDate("data_nascimento").toLocalDate());
-				usuario.setDataCadastro(rs.getDate("data_cadastro").toLocalDate());
+				usuario.setDataNascimento(rs.getObject("data_nascimento", LocalDate.class));
+				usuario.setDataCadastro(rs.getObject("data_cadastro", LocalDate.class));
 				usuario.setStatus(EnumStatus.valueOf(status));
 				usuario.setTipo(EnumTipo.valueOf(tipo));
 				
@@ -134,7 +134,7 @@ public class UsuarioRepository {
 		
 		Connection con = ConnectionFactory.getConnection();
 		String sql = "INSERT INTO usuarios (nome, email, senha, telefone, data_nascimento, data_cadastro, "
-					+ "status, tipo_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "status, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try (con) {
 			
@@ -162,8 +162,8 @@ public class UsuarioRepository {
 	public void editarUsuario(Usuario usuario) {
 		
 		Connection con = ConnectionFactory.getConnection();
-		String sql = "UPDATE usuarios SET nome = ?, email = ?, telefone = ?, tipo_usuario = ?"
-				+ " WHERE usuario_id = ?";
+		String sql = "UPDATE usuarios SET nome = ?, email = ?, telefone = ?, tipo = ?"
+				+ " WHERE id = ?";
 		
 		try (con) {
 			
@@ -186,7 +186,7 @@ public class UsuarioRepository {
 	public void desativarUsuario(Long id) {
 		
 		Connection con = ConnectionFactory.getConnection();
-		String sql = "UPDATE usuarios SET status = 'INATIVO' WHERE usuario_id = ?";
+		String sql = "UPDATE usuarios SET status = 'INATIVO' WHERE id = ?";
 		
 		try (con) {
 			
