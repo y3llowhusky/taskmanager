@@ -33,6 +33,7 @@ public class TarefaRepository {
 				Long responsavelId = rs.getObject("responsavel_id", Long.class);
 				LocalDate prazoEntrega = rs.getObject("prazo_entrega", LocalDate.class);
 				
+				tarefa.setId(rs.getLong("id"));
 				tarefa.setNome(rs.getString("nome"));
 				tarefa.setDescricao(rs.getString("descricao"));
 				tarefa.setDataCriacao(rs.getObject("data_criacao", LocalDate.class));
@@ -57,7 +58,7 @@ public class TarefaRepository {
 		
 		Connection con = ConnectionFactory.getConnection();
 		Tarefa tarefa = null;
-		String sql = "SELECT * FROM TAREFAS WHERE id = ?";
+		String sql = "SELECT * FROM tarefas WHERE id = ?";
 		
 		try (con) {
 			
@@ -68,17 +69,19 @@ public class TarefaRepository {
 			while (rs.next()) {
 				
 				tarefa = new Tarefa();
-				String situacao = rs.getString("situacao");
 				
+				String situacao = rs.getString("situacao");
+				Long responsavelId = rs.getObject("responsavel_id", Long.class);
+				LocalDate prazoEntrega = rs.getObject("prazo_entrega", LocalDate.class);
+				
+				tarefa.setId(rs.getLong("id"));
 				tarefa.setNome(rs.getString("nome"));
 				tarefa.setDescricao(rs.getString("descricao"));
 				tarefa.setDataCriacao(rs.getObject("data_criacao", LocalDate.class));
 				tarefa.setSituacao(EnumSituacao.valueOf(situacao));
 				tarefa.setCriadorId(rs.getLong("criador_id"));
-				tarefa.setResponsavelId(rs.getLong("responsavel_id"));
-				tarefa.setPrazoEntrega(rs.getObject("prazo_entrega", LocalDate.class));
-				
-				
+				tarefa.setResponsavelId(responsavelId);
+				tarefa.setPrazoEntrega(prazoEntrega);
 				
 			}
 			
@@ -105,15 +108,19 @@ public class TarefaRepository {
 			while (rs.next()) {
 				
 				Tarefa tarefa = new Tarefa();
-				String situacao = rs.getString("situacao");
 				
+				String situacao = rs.getString("situacao");
+				Long responsavelId = rs.getObject("responsavel_id", Long.class);
+				LocalDate prazoEntrega = rs.getObject("prazo_entrega", LocalDate.class);
+				
+				tarefa.setId(rs.getLong("id"));
 				tarefa.setNome(rs.getString("nome"));
 				tarefa.setDescricao(rs.getString("descricao"));
 				tarefa.setDataCriacao(rs.getObject("data_criacao", LocalDate.class));
 				tarefa.setSituacao(EnumSituacao.valueOf(situacao));
 				tarefa.setCriadorId(rs.getLong("criador_id"));
-				tarefa.setResponsavelId(rs.getLong("responsavel_id"));
-				tarefa.setPrazoEntrega(rs.getObject("prazo_entrega", LocalDate.class));
+				tarefa.setResponsavelId(responsavelId);
+				tarefa.setPrazoEntrega(prazoEntrega);
 				
 				tarefas.add(tarefa);
 				
@@ -142,15 +149,19 @@ public class TarefaRepository {
 			while (rs.next()) {
 				
 				Tarefa tarefa = new Tarefa();
-				String situacao = rs.getString("situacao");
 				
+				String situacao = rs.getString("situacao");
+				Long responsavelId = rs.getObject("responsavel_id", Long.class);
+				LocalDate prazoEntrega = rs.getObject("prazo_entrega", LocalDate.class);
+				
+				tarefa.setId(rs.getLong("id"));
 				tarefa.setNome(rs.getString("nome"));
 				tarefa.setDescricao(rs.getString("descricao"));
 				tarefa.setDataCriacao(rs.getObject("data_criacao", LocalDate.class));
 				tarefa.setSituacao(EnumSituacao.valueOf(situacao));
 				tarefa.setCriadorId(rs.getLong("criador_id"));
-				tarefa.setResponsavelId(rs.getLong("responsavel_id"));
-				tarefa.setPrazoEntrega(rs.getObject("prazo_entrega", LocalDate.class));
+				tarefa.setResponsavelId(responsavelId);
+				tarefa.setPrazoEntrega(prazoEntrega);
 				
 				tarefas.add(tarefa);
 				
@@ -178,15 +189,19 @@ public class TarefaRepository {
 			while(rs.next()) {
 				
 				Tarefa tarefa = new Tarefa();
-				String situacao = rs.getString("situacao");
 				
+				String situacao = rs.getString("situacao");
+				Long responsavelId = rs.getObject("responsavel_id", Long.class);
+				LocalDate prazoEntrega = rs.getObject("prazo_entrega", LocalDate.class);
+				
+				tarefa.setId(rs.getLong("id"));
 				tarefa.setNome(rs.getString("nome"));
 				tarefa.setDescricao(rs.getString("descricao"));
 				tarefa.setDataCriacao(rs.getObject("data_criacao", LocalDate.class));
 				tarefa.setSituacao(EnumSituacao.valueOf(situacao));
 				tarefa.setCriadorId(rs.getLong("criador_id"));
-				tarefa.setResponsavelId(rs.getLong("responsavel_id"));
-				tarefa.setPrazoEntrega(rs.getObject("prazo_entrega", LocalDate.class));
+				tarefa.setResponsavelId(responsavelId);
+				tarefa.setPrazoEntrega(prazoEntrega);
 				
 				tarefas.add(tarefa);
 				
@@ -200,7 +215,7 @@ public class TarefaRepository {
 		
 	}
 	
-	public void concluir(Tarefa tarefa, Long id) {
+	public void concluir(Long id) {
 		
 		Connection con = ConnectionFactory.getConnection();
 		String sql = "UPDATE tarefas SET situacao = 'CONCLUIDA' WHERE id = ?";
@@ -217,7 +232,7 @@ public class TarefaRepository {
 		
 	}
 	
-	public void cancelar(Tarefa tarefa, Long id) {
+	public void cancelar(Long id) {
 		
 		Connection con = ConnectionFactory.getConnection();
 		String sql = "UPDATE tarefas SET situacao = 'CANCELADA' WHERE id = ?";
@@ -238,18 +253,45 @@ public class TarefaRepository {
 		
 		Connection con = ConnectionFactory.getConnection();
 		String sql = "UPDATE tarefas SET nome = ?, descricao = ?, responsavel_id = ?, prazo_entrega = ?"
-				+ "WHERE id = ?";
+				+ " WHERE id = ?";
 		
 		try (con) {
 			
 			PreparedStatement ps = con.prepareStatement(sql);
-			Date prazoEntrega = Date.valueOf(tarefa.getPrazoEntrega());
 			
 			ps.setString(1, tarefa.getNome());
 			ps.setString(2, tarefa.getDescricao());
-			ps.setLong(3, tarefa.getResponsavelId());
-			ps.setDate(4, prazoEntrega);
+			ps.setObject(3, tarefa.getResponsavelId());
+			ps.setObject(4, tarefa.getPrazoEntrega());
 			ps.setLong(5, id);
+			
+			ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void criar(Tarefa tarefa) {
+		
+		Connection con = ConnectionFactory.getConnection();
+		String sql = "INSERT INTO tarefas (nome, descricao, data_criacao, situacao, criador_id, "
+					+ "responsavel_id, prazo_entrega) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		
+		try (con) {
+			
+			PreparedStatement ps = con.prepareStatement(sql);
+			Date dataCriacao = Date.valueOf(LocalDate.now());
+			String situacao = tarefa.getSituacao().name();
+			
+			ps.setString(1, tarefa.getNome());
+			ps.setString(2, tarefa.getDescricao());
+			ps.setDate(3, dataCriacao);
+			ps.setString(4, situacao);
+			ps.setLong(5, tarefa.getCriadorId());
+			ps.setObject(6, tarefa.getResponsavelId());
+			ps.setObject(7, tarefa.getPrazoEntrega());
 			
 			ps.executeUpdate();
 			
