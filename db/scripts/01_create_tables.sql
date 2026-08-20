@@ -10,7 +10,7 @@ GO
 -- CREATE TABLES
 
 CREATE TABLE usuarios (
-    usuario_id       	BIGINT IDENTITY(1,1) PRIMARY KEY,
+    id       			BIGINT IDENTITY(1,1) PRIMARY KEY,
     nome            	VARCHAR(50) NOT NULL,
     email           	VARCHAR(50) NOT NULL UNIQUE,
     senha           	VARCHAR(50) NOT NULL,
@@ -18,16 +18,16 @@ CREATE TABLE usuarios (
     data_nascimento  	DATE        NOT NULL,
     data_cadastro    	DATE        NOT NULL,
     status          	VARCHAR(20) NOT NULL,
-    usuario_tipo     	VARCHAR(20) NOT NULL
+    tipo     			VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE tarefas (
-    tarefa_id        	BIGINT IDENTITY(1,1) PRIMARY KEY,
+    id        			BIGINT IDENTITY(1,1) PRIMARY KEY,
     nome            	VARCHAR(50) NOT NULL,
     descricao       	VARCHAR(MAX),
     data_criacao     	DATE        NOT NULL,
-    tarefa_situacao  	VARCHAR(20) NOT NULL,
-    criador_id       	BIGINT,
+    situacao  			VARCHAR(20) NOT NULL,
+    criador_id       	BIGINT 		NOT NULL,
     responsavel_id   	BIGINT,
     prazo_entrega    	DATE
 );
@@ -36,11 +36,11 @@ CREATE TABLE tarefas (
 
 ALTER TABLE tarefas
 ADD CONSTRAINT fk_tarefa_criador
-FOREIGN KEY (criador_id) REFERENCES usuarios (usuario_id);
+FOREIGN KEY (criador_id) REFERENCES usuarios (id);
 
 ALTER TABLE tarefas
 ADD CONSTRAINT fk_tarefa_responsavel
-FOREIGN KEY (responsavel_id) REFERENCES usuarios (usuario_id);
+FOREIGN KEY (responsavel_id) REFERENCES usuarios (id);
 
 -- CHECK
 
@@ -50,8 +50,8 @@ CHECK (status IN ('ATIVO', 'INATIVO'));
 
 ALTER TABLE usuarios
 ADD CONSTRAINT ck_usuarios_tipo
-CHECK (usuario_tipo IN ('PADRAO', 'ADMIN'));
+CHECK (tipo IN ('PADRAO', 'ADMIN'));
 
 ALTER TABLE tarefas
 ADD CONSTRAINT ck_tarefas_situacao
-CHECK (tarefa_situacao IN ('PENDENTE', 'CONCLUIDA', 'CANCELADA'));
+CHECK (situacao IN ('PENDENTE', 'CONCLUIDA', 'CANCELADA'));
